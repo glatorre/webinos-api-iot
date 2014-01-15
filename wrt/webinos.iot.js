@@ -47,7 +47,6 @@
         
         webinos.rpcHandler.executeRPC(rpc,
             function (result){
-            
                 self.maximumRange = result.maximumRange;
                 self.minDelay = result.minDelay;
                 self.power = result.power;
@@ -60,7 +59,9 @@
                 };
             },
             function (error){
-                
+                if (typeof bindCB.onError === 'function') {
+                    bindCB.onError(error);
+                }
             }
         );
     };
@@ -133,7 +134,6 @@
             var rpc = webinos.rpcHandler.createRPC(this, "getStaticData", []);
             webinos.rpcHandler.executeRPC(rpc,
                 function (result){
-            
                     self.range = result.range;
                     self.unit = result.unit;
                     self.vendor = result.vendor;
@@ -143,7 +143,9 @@
                     }
                 },
                 function (error){
-                    
+                    if (typeof bindCB.onError === 'function') {
+                        bindCB.onError(error);
+                    }
                 }
             );
     };
